@@ -41,10 +41,9 @@ func backup(cmd *cobra.Command, args []string) error {
 			CertFile:  certFile,
 			KeyFile:   keyFile,
 		},
-		Timeout: backupTimeout,
-		Prefix:  backupPrefix,
-		File:    args[0],
-		Log:     log.New(),
+		Prefix: backupPrefix,
+		File:   args[0],
+		Log:    log.New(),
 	})
 	if err != nil {
 		return trace.Wrap(err)

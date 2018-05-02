@@ -45,7 +45,6 @@ func restore(cmd *cobra.Command, args []string) error {
 			CertFile:  certFile,
 			KeyFile:   keyFile,
 		},
-		Timeout:       restoreTimeout,
 		Prefix:        restorePrefix,
 		MigratePrefix: migratePrefix,
 		File:          args[0],
