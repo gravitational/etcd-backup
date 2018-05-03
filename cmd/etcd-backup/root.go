@@ -25,7 +25,7 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringSliceVarP(&endpoints, "etcd-servers", "", []string{"http://127.0.0.1:5001"}, "List of etcd servers to connect with (scheme://ip:port), comma separated.")
+	rootCmd.PersistentFlags().StringSliceVarP(&endpoints, "etcd-servers", "", []string{"https://127.0.0.1:2379"}, "List of etcd servers to connect with (scheme://ip:port), comma separated.")
 	rootCmd.PersistentFlags().StringVarP(&caFile, "etcd-cafile", "", "/var/state/root.cert", "SSL Certificate Authority file used to secure etcd communication.")
 	rootCmd.PersistentFlags().StringVarP(&certFile, "etcd-certfile", "", "/var/state/etcd.cert", "SSL certification file used to secure etcd communication.")
 	rootCmd.PersistentFlags().StringVarP(&keyFile, "etcd-keyfile", "", "/var/state/etcd.key", "SSL key file used to secure etcd communication.")
@@ -34,7 +34,7 @@ func init() {
 // Execute initializes cobra
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		fmt.Println(trace.DebugReport(err))
 		os.Exit(1)
 	}
 }
