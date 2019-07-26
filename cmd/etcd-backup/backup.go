@@ -18,6 +18,8 @@ package etcdexport
 
 import (
 	"context"
+	"io/ioutil"
+	"os"
 	"time"
 
 	etcdconf "github.com/gravitational/coordinate/config"
@@ -31,26 +33,42 @@ var backupCmd = &cobra.Command{
 	Use:   "backup [file]",
 	Short: "backup etcd datastore",
 	Long:  ``,
-	Args:  cobra.ExactArgs(1),
+	Args:  cobra.MaximumNArgs(1),
 	RunE:  backup,
 }
 
 var (
 	backupTimeout time.Duration
 	backupPrefix  []string
+	backupQuiet   bool
 )
 
 func init() {
 	backupCmd.Flags().DurationVarP(&backupTimeout, "timeout", "", 2*time.Minute, "Cancel the backup if it takes too long")
 	backupCmd.Flags().StringSliceVarP(&backupPrefix, "prefix", "", []string{"/"}, "The Etcd path to backup")
+	backupCmd.Flags().BoolVarP(&backupQuiet, "quiet", "q", false, "Do not output progress")
 	rootCmd.AddCommand(backupCmd)
 }
 
-func backup(cmd *cobra.Command, args []string) error {
+func backup(cmd *cobra.Command, args []string) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), backupTimeout)
 	defer cancel()
 
-	err := etcd.Backup(ctx, etcd.BackupConfig{
+	writer := os.Stdout
+	if len(args) > 0 && args[0] != "" {
+		writer, err = os.OpenFile(args[0], os.O_WRONLY|os.O_CREATE, 0666)
+		if err != nil {
+			return trace.Wrap(err)
+		}
+		defer writer.Close()
+	}
+
+	logger := log.New()
+	if backupQuiet {
+		logger.Out = ioutil.Discard
+	}
+
+	err = etcd.Backup(ctx, etcd.BackupConfig{
 		EtcdConfig: etcdconf.Config{
 			Endpoints: endpoints,
 			CAFile:    caFile,
@@ -58,8 +76,8 @@ func backup(cmd *cobra.Command, args []string) error {
 			KeyFile:   keyFile,
 		},
 		Prefix: backupPrefix,
-		File:   args[0],
-		Log:    log.New(),
+		Writer: writer,
+		Log:    logger,
 	})
 	if err != nil {
 		return trace.Wrap(err)
