@@ -56,7 +56,7 @@ func backup(cmd *cobra.Command, args []string) (err error) {
 
 	writer := os.Stdout
 	if len(args) > 0 && args[0] != "" {
-		writer, err = os.OpenFile(args[0], os.O_WRONLY|os.O_CREATE, 0666)
+		writer, err = os.Create(args[0])
 		if err != nil {
 			return trace.Wrap(err)
 		}
