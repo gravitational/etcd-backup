@@ -25,6 +25,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cenkalti/backoff"
+
 	"go.etcd.io/etcd/mvcc"
 	"go.etcd.io/etcd/mvcc/backend"
 	"go.etcd.io/etcd/mvcc/mvccpb"
@@ -213,15 +215,24 @@ func restoreNodeV2(ctx context.Context, conf RestoreConfig, node *etcdv2.Node, k
 			if err != nil {
 				return trace.Wrap(err)
 			}
-			clientv3.KV.Put(ctx, node.Key, node.Value, etcdv3.WithLease(lease.ID))
-		} else {
-			clientv3.KV.Put(ctx, node.Key, node.Value)
-		}
 
-	} else {
-		keysv2.Set(ctx, node.Key, node.Value, &etcdv2.SetOptions{TTL: node.TTLDuration(), Dir: node.Dir})
+			return trace.Wrap(retry(ctx, func() error {
+				_, err := clientv3.KV.Put(ctx, node.Key, node.Value, etcdv3.WithLease(lease.ID))
+				return trace.Wrap(err)
+			}))
+
+		}
+		return trace.Wrap(retry(ctx, func() error {
+			_, err := clientv3.KV.Put(ctx, node.Key, node.Value)
+			return trace.Wrap(err)
+		}))
+
 	}
-	return nil
+	return trace.Wrap(retry(ctx, func() error {
+		_, err := keysv2.Set(ctx, node.Key, node.Value, &etcdv2.SetOptions{TTL: node.TTLDuration(), Dir: node.Dir})
+		return trace.Wrap(err)
+	}))
+
 }
 
 func restoreNodeV3(ctx context.Context, conf RestoreConfig, node *KeyValue, clientv3 *etcdv3.Client) error {
@@ -238,11 +249,26 @@ func restoreNodeV3(ctx context.Context, conf RestoreConfig, node *KeyValue, clie
 		if err != nil {
 			return trace.Wrap(err)
 		}
-		clientv3.KV.Put(ctx, string(node.Key), string(node.Value), etcdv3.WithLease(lease.ID))
-	} else {
-		clientv3.KV.Put(ctx, string(node.Key), string(node.Value))
+		return trace.Wrap(retry(ctx, func() error {
+			_, err := clientv3.KV.Put(ctx, string(node.Key), string(node.Value), etcdv3.WithLease(lease.ID))
+			return trace.Wrap(err)
+		}))
 	}
-	return nil
+
+	return trace.Wrap(retry(ctx, func() error {
+		_, err := clientv3.KV.Put(ctx, string(node.Key), string(node.Value))
+		return trace.Wrap(err)
+	}))
+
+}
+
+const retryMaxElapsedTime = 60 * time.Second
+
+func retry(ctx context.Context, f func() error) error {
+	interval := backoff.NewExponentialBackOff()
+	interval.MaxElapsedTime = retryMaxElapsedTime
+	b := backoff.WithContext(interval, ctx)
+	return trace.Wrap(backoff.Retry(f, b))
 }
 
 // checkPrefix checks if a given string matches a list of prefixes
