@@ -218,19 +218,28 @@ func restoreNodeV2(ctx context.Context, conf RestoreConfig, node *etcdv2.Node, k
 
 			return trace.Wrap(retry(ctx, func() error {
 				_, err := clientv3.KV.Put(ctx, node.Key, node.Value, etcdv3.WithLease(lease.ID))
-				return trace.Wrap(err).AddField("key", node.Key)
+				if err != nil {
+					return trace.Wrap(err).AddField("key", node.Key)
+				}
+				return nil
 			}))
 
 		}
 		return trace.Wrap(retry(ctx, func() error {
 			_, err := clientv3.KV.Put(ctx, node.Key, node.Value)
-			return trace.Wrap(err).AddField("key", node.Key)
+			if err != nil {
+				return trace.Wrap(err).AddField("key", node.Key)
+			}
+			return nil
 		}))
 
 	}
 	return trace.Wrap(retry(ctx, func() error {
 		_, err := keysv2.Set(ctx, node.Key, node.Value, &etcdv2.SetOptions{TTL: node.TTLDuration(), Dir: node.Dir})
-		return trace.Wrap(err).AddField("key", node.Key)
+		if err != nil {
+			return trace.Wrap(err).AddField("key", node.Key)
+		}
+		return nil
 	}))
 
 }
@@ -251,13 +260,19 @@ func restoreNodeV3(ctx context.Context, conf RestoreConfig, node *KeyValue, clie
 		}
 		return trace.Wrap(retry(ctx, func() error {
 			_, err := clientv3.KV.Put(ctx, string(node.Key), string(node.Value), etcdv3.WithLease(lease.ID))
-			return trace.Wrap(err).AddField("key", string(node.Key))
+			if err != nil {
+				return trace.Wrap(err).AddField("key", string(node.Key))
+			}
+			return nil
 		}))
 	}
 
 	return trace.Wrap(retry(ctx, func() error {
 		_, err := clientv3.KV.Put(ctx, string(node.Key), string(node.Value))
-		return trace.Wrap(err).AddField("key", string(node.Key))
+		if err != nil {
+			return trace.Wrap(err).AddField("key", string(node.Key))
+		}
+		return nil
 	}))
 
 }
