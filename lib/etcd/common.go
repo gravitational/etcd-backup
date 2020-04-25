@@ -20,11 +20,11 @@ import (
 	"context"
 	"time"
 
+	etcdv2 "github.com/coreos/etcd/client"
+	etcdv3 "github.com/coreos/etcd/clientv3"
 	"github.com/coreos/go-semver/semver"
 	etcdconf "github.com/gravitational/coordinate/config"
 	"github.com/gravitational/trace"
-	etcdv2 "go.etcd.io/etcd/client"
-	etcdv3 "go.etcd.io/etcd/clientv3"
 )
 
 func getClients(config etcdconf.Config) (etcdv2.KeysAPI, *etcdv3.Client, error) {
