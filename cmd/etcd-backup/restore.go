@@ -20,7 +20,7 @@ import (
 	"context"
 	"time"
 
-	etcdconf "github.com/gravitational/coordinate/config"
+	etcdconf "github.com/gravitational/coordinate/v4/config"
 	"github.com/gravitational/etcd-backup/lib/etcd"
 	"github.com/gravitational/trace"
 	log "github.com/sirupsen/logrus"
