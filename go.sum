@@ -1,8 +1,8 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/a-palchikov/coordinate/v4 v4.0.0-20210729111420-500057170c8f h1:aPUcN7It1WmWezICizGlfg6/h+MHGdo6lUssy4L9jIo=
-github.com/a-palchikov/coordinate/v4 v4.0.0-20210729111420-500057170c8f/go.mod h1:VMKniBb8gZ6xxRdy1tO06+BTAsmctb049yLxxF/iNYo=
+github.com/a-palchikov/coordinate/v4 v4.0.0-20210729114333-cca0da0c9f47 h1:TODmHaE++UHaz8ke9TukZMXMQCIOndFDzCPtta0d/sA=
+github.com/a-palchikov/coordinate/v4 v4.0.0-20210729114333-cca0da0c9f47/go.mod h1:qtSGgHvGQTztENiTudIN8CypTVQV3P0p4lrCmXEL840=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
