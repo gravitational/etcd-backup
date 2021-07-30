@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"os"
 
-	etcdconf "github.com/gravitational/coordinate/config"
+	etcdconf "github.com/gravitational/coordinate/v4/config"
 	"github.com/gravitational/trace"
 	"github.com/spf13/cobra"
 	etcdv2 "go.etcd.io/etcd/client"
