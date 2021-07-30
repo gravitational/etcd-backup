@@ -1,8 +1,6 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/a-palchikov/coordinate/v4 v4.0.0-20210729114333-cca0da0c9f47 h1:TODmHaE++UHaz8ke9TukZMXMQCIOndFDzCPtta0d/sA=
-github.com/a-palchikov/coordinate/v4 v4.0.0-20210729114333-cca0da0c9f47/go.mod h1:qtSGgHvGQTztENiTudIN8CypTVQV3P0p4lrCmXEL840=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
@@ -61,6 +59,8 @@ github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/gorilla/websocket v0.0.0-20170926233335-4201258b820c h1:Lh2aW+HnU2Nbe1gqD9SOJLJxW1jBMmQOktN2acDyJk8=
 github.com/gorilla/websocket v0.0.0-20170926233335-4201258b820c/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoAMk2YaljkQ=
+github.com/gravitational/coordinate/v4 v4.0.0 h1:/2ZEbmcUTKtMLLSqdQoQUPElefpqrXYDRPmxPDmJVsA=
+github.com/gravitational/coordinate/v4 v4.0.0/go.mod h1:qtSGgHvGQTztENiTudIN8CypTVQV3P0p4lrCmXEL840=
 github.com/gravitational/trace v0.0.0-20200326194303-2d27a078e25b h1:0umbcF/qZItRiUg3ut9o4TCuQUqL9mqCbGJj7k9WlPU=
 github.com/gravitational/trace v0.0.0-20200326194303-2d27a078e25b/go.mod h1:RvdOUHE4SHqR3oXlFFKnGzms8a5dugHygGw1bqDstYI=
 github.com/grpc-ecosystem/go-grpc-middleware v1.0.1-0.20190118093823-f849b5445de4 h1:z53tR0945TRRQO/fLEVPI6SMv7ZflF0TEaTAoU7tOzg=

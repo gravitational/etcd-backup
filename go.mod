@@ -14,7 +14,6 @@ require (
 )
 
 replace (
-	github.com/gravitational/coordinate/v4 => github.com/a-palchikov/coordinate/v4 v4.0.0-20210729114333-cca0da0c9f47
 	go.etcd.io/bbolt => go.etcd.io/bbolt v1.3.4
 	go.etcd.io/etcd => go.etcd.io/etcd v0.5.0-alpha.5.0.20200401174654-e694b7bb0875
 )
